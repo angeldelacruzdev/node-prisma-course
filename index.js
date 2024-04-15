@@ -26,13 +26,13 @@ async function main() {
 
   //   console.log(user);
 
-  //   const deleteUser = await prisma.user.delete({
-  //     where: {
-  //       id: 6,
-  //     },
-  //   });
+  // const deleteUser = await prisma.user.delete({
+  //   where: {
+  //     id: 7,
+  //   },
+  // });
 
-  //   console.log(deleteUser);
+  // console.log(deleteUser);
 
   //   const updateUser = await prisma.user.update({
   //     where: {
@@ -60,20 +60,41 @@ async function main() {
 
   //   console.log(updateUsers);
 
-  const user = await prisma.user.upsert({
+  // const user = await prisma.user.upsert({
+  //   where: {
+  //     email:  'BethJMorris4@jourrapide.com',
+  //   },
+  //   create: {
+  //     email: "BethJMorris4@jourrapide.com",
+  //     name: "Beth",
+  //   },
+  //   update: {
+  //     lastName: "J. Morris Bltran Duran",
+  //   },
+  // });
+
+  // console.log(user);
+
+  const user = await prisma.user.findFirst({
     where: {
-      email: "viola@prisma.io",
-    },
-    create: {
-      email: "viola@prisma.io",
-      name: "Viola the Magnificent",
-    },
-    update: {
-      name: "Viola the Magnificent",
+      id: 1,
     },
   });
 
-  console.log(user);
+  const newPost = await prisma.post.create({
+    data: {
+      title: "Padre rico, padre pobre",
+      content:
+        "Este primer libro es uno de los que tiene mayor reputación en todo el mundo. ",
+      author: {
+        connect: {
+          id: user.id,
+        },
+      },
+    },
+  });
+
+  console.log(newPost);
 }
 
 main();
