@@ -75,26 +75,38 @@ async function main() {
 
   // console.log(user);
 
-  const user = await prisma.user.findFirst({
-    where: {
-      id: 1,
+  // const user = await prisma.user.findFirst({
+  //   where: {
+  //     id: 1,
+  //   },
+  // });
+
+  // const newPost = await prisma.post.create({
+  //   data: {
+  //     title: "Padre rico, padre pobre",
+  //     content:
+  //       "Este primer libro es uno de los que tiene mayor reputación en todo el mundo. ",
+  //     author: {
+  //       connect: {
+  //         id: user.id,
+  //       },
+  //     },
+  //   },
+  // });
+
+  // console.log(newPost);
+
+  //   const post = await prisma.post.findMany();
+
+  //   console.log(post);
+
+  const post = await prisma.post.findMany({
+    include: {
+      author: true,
     },
   });
 
-  const newPost = await prisma.post.create({
-    data: {
-      title: "Padre rico, padre pobre",
-      content:
-        "Este primer libro es uno de los que tiene mayor reputación en todo el mundo. ",
-      author: {
-        connect: {
-          id: user.id,
-        },
-      },
-    },
-  });
-
-  console.log(newPost);
+  console.log(post)
 }
 
 main();
