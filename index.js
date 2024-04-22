@@ -100,13 +100,25 @@ async function main() {
 
   //   console.log(post);
 
-  const post = await prisma.post.findMany({
+  // const posts = await prisma.post.findMany({
+  //   include: {
+  //     author: true,
+  //   },
+  // });
+
+  // posts.forEach((post) => {
+  //   console.log(post.author);
+  // });
+
+  const users = await prisma.user.findMany({
     include: {
-      author: true,
+      posts: true,
     },
   });
 
-  console.log(post)
+  users.forEach((user) => {
+    console.log(user.posts);
+  });
 }
 
 main();
